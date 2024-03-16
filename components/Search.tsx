@@ -2,9 +2,13 @@
 import React, { useEffect, useState } from 'react'
 import { Button } from './ui/button'
 import { Input } from './ui/input'
-import { SearchIcon } from 'lucide-react'
+import { Check, ChevronsUpDown, SearchIcon } from 'lucide-react'
 import GlobalAPI from '@/utils/GlobalAPI'
 import Image from 'next/image'
+import DoctorList from './DoctorList'
+import { Skeleton } from './ui/skeleton'
+
+
 
 interface IImageData{
   attributes:{
@@ -31,13 +35,17 @@ function Search() {
 
   const [categories,setCategories]=useState<MedicalSpecialist[]>();
 
+  let[isLoading,setIsLoading]=useState(true);
+
   useEffect(()=>{
 
     async function getCategories() 
     {
+      
       const res=await GlobalAPI.getCategory();  
       console.log(res.data?.data);
       setCategories(res.data?.data);
+      setIsLoading(false);
     }
 
     getCategories();
@@ -52,8 +60,14 @@ function Search() {
         <Input type="text" placeholder="search ..." />
         <Button size={"sm"} type="submit"><SearchIcon className=' h-4'/>Search</Button>
       </div>
-        <div className=' transition-all grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 my-4 px-8'>
-          {categories?.map((category)=>{
+        <div className=' transition-all grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 my-8 px-8'>
+          { isLoading ? [1,2,3,4,5,6].map((item,idx)=>{
+            return(
+              <Skeleton>
+                <div className=' h-[120px] w-[150px] p-4 rounded-md'></div>
+              </Skeleton>
+            )
+          }) : categories?.map((category)=>{
             return(
               <div className='bg-[#617fd8] text-black hover:bg-primary cursor-pointer rounded-md flex flex-col justify-center items-center p-2'>
                 <Image className=' hover:scale-110' key={category.id} src={category.attributes.image.data.attributes.url} alt={category.attributes.name} height={40} width={60}/>
@@ -63,6 +77,9 @@ function Search() {
             )
           })} 
         </div>
+        <h1 className=' text-3xl text-primary mb-4 mt-2'>Popular Doctors</h1>
+        <DoctorList/>
+       
         
        
        
