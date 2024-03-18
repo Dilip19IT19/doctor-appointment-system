@@ -12,5 +12,7 @@ const axiosClient=axios.create(
 
 const getCategory=()=>axiosClient.get('categories?populate=*');
 const getDoctors=()=>axiosClient.get('doctors?populate=*');
+const getDoctorsByCategory=(category:string)=>axiosClient.get(`categories?filters[name][$eq]=${category}&populate=doctors.image`);
+const getDoctorById=(id:number)=>axiosClient.get(`doctors?filters[id][$eq]=${id}&populate=*`);
 
-export default {getCategory,getDoctors};
+export default {getCategory,getDoctors,getDoctorsByCategory,getDoctorById};

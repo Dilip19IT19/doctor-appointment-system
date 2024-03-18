@@ -4,6 +4,8 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Nabvar from "@/components/Nabvar";
 
+
+
 const poppins = Poppins({ weight: "400", subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -27,6 +29,7 @@ export default function RootLayout({
             >
               <Nabvar/>
               {children}
+             
         </ThemeProvider>
       </body>
        
