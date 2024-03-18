@@ -7,6 +7,8 @@ import GlobalAPI from '@/utils/GlobalAPI'
 import Image from 'next/image'
 import DoctorList from './DoctorList'
 import { Skeleton } from './ui/skeleton'
+import Link from 'next/link'
+
 
 
 
@@ -69,17 +71,18 @@ function Search() {
             )
           }) : categories?.map((category)=>{
             return(
-              <div className='bg-[#617fd8] text-black hover:bg-primary cursor-pointer rounded-md flex flex-col justify-center items-center p-2'>
+              <Link href={`/search/${category.attributes.name}`} className='bg-[#617fd8] text-black hover:bg-primary cursor-pointer rounded-md flex flex-col justify-center items-center p-2'>
                 <Image className=' hover:scale-110' key={category.id} src={category.attributes.image.data.attributes.url} alt={category.attributes.name} height={40} width={60}/>
                 <label>{category.attributes.name}</label>
-              </div>
+              </Link>
              
             )
           })} 
         </div>
         <h1 className=' text-3xl text-primary mb-4 mt-2'>Popular Doctors</h1>
         <DoctorList/>
-       
+       <p className=' my-4'></p>
+     
         
        
        
