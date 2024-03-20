@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { Badge } from "@/components/ui/badge"
 import { Button } from './ui/button';
 import { Skeleton } from "@/components/ui/skeleton"
+import Link from 'next/link';
 
 
 interface IDoctor
@@ -71,7 +72,7 @@ function DoctorList() {
               <Image className=' hover:scale-105 transition-all cursor-pointer h-[200px] w-full aspect-auto  object-cover rounded-md shadow-lg my-2 ' height={200} width={400} src={doctor.attributes.image.data.attributes.url} alt={doctor.attributes.name} />
              <label className=''>{doctor.attributes.name}</label>
              <div className=' flex md:flex-row flex-col md:gap-0 gap-4  md:justify-between my-2 items-center'>
-              <Button size={"sm"}>Book Now</Button>
+              <Link href={`/details/${doctor.id}`}><Button size={"sm"}>Book Now</Button></Link> 
               <Badge variant={"secondary"}>{doctor.attributes.category.data.attributes.name}</Badge>
              </div>
          </div>
