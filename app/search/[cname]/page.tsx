@@ -3,7 +3,9 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import GlobalAPI from '@/utils/GlobalAPI';
 import Image from 'next/image';
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
+
 
 interface Iprop{
   params:{
@@ -68,15 +70,16 @@ function SearchPage({params}:Iprop)
                 <Badge variant={"secondary"}>{doctor?.attributes?.name}</Badge>
                 <p className=' text-primary'>Experience : {doctor.attributes.experience}</p>
                 <p className=' text-primary'>Patients : {doctor.attributes.patients}</p>
-              <Button size={"sm"} variant={"outline"} className=' my-2'>Book Now</Button>
-              
+                <Link href={`/details/${doctor.id}`}>
+                  <Button size={"sm"} variant={"outline"} className=' my-2'>Book Now</Button>
+                </Link>          
              
             </div>
           )
         })}
       </div>
 
-   </div>
+    </div>
   )
 }
 

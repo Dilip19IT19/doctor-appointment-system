@@ -3,7 +3,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Nabvar from "@/components/Nabvar";
-
+import { Toaster } from "@/components/ui/toaster"
 
 
 const poppins = Poppins({ weight: "400", subsets: ["latin"] });
@@ -29,7 +29,7 @@ export default function RootLayout({
             >
               <Nabvar/>
               {children}
-             
+             <Toaster/>
         </ThemeProvider>
       </body>
        
