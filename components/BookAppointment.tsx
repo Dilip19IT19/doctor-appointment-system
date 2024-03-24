@@ -17,6 +17,7 @@ import { KindeUser } from '@kinde-oss/kinde-auth-nextjs/server'
 import GlobalAPI from '@/utils/GlobalAPI'
 import { useToast } from "@/components/ui/use-toast"
 import { ToastAction } from './ui/toast'
+import {TailSpin} from "react-loader-spinner"
 
 
 
@@ -31,7 +32,8 @@ function BookAppointment({id}:Tprop) {
   let[timeSlots,setTimeSlots]=useState<string[]>([]);
   let[selectedSlot,setSelectedSlot]=useState("");
   let[user,setUser]=useState<KindeUser>();
-  const { toast } = useToast()
+  const { toast } = useToast();
+  let[isLoading,setIsLoading]=useState(false);
 
   useEffect(()=>{
     function getTime()
@@ -44,7 +46,7 @@ function BookAppointment({id}:Tprop) {
       }
       timeList.push("12:00 P.M");
       timeList.push("12:30 P.M");
-      for(let i=1;i<=7;i++)
+      for(let i=1;i<=8;i++)
       {
         timeList.push(i+":00 P.M");
         timeList.push(i+":30 P.M");
@@ -88,6 +90,7 @@ function BookAppointment({id}:Tprop) {
 
       try
       {
+        setIsLoading(true);
         const res= await GlobalAPI.createAppointment(data);
         console.log(res);
         const response=await GlobalAPI.sendEmail(data);
@@ -105,6 +108,10 @@ function BookAppointment({id}:Tprop) {
           
         })
       }
+      finally
+      {
+        setIsLoading(false);
+      }
      
    
   }
@@ -118,33 +125,34 @@ function BookAppointment({id}:Tprop) {
         <DialogContent>
           <DialogHeader>
            
-            <DialogDescription className=' grid grid-cols-1   md:grid-cols-2'>
-              <div className=' flex flex-col gap-4 items-start justify-center '>
-                <div className=' mb-1 flex items-center gap-2'>
-                <CalendarDays className='text-primary' /> Select date
-                </div>
-                <Calendar
-                  mode="single"
-                  selected={date}
-                  onSelect={setDate}
-                  disabled={isPastDay}
-                  className="rounded-md py-12 px-4 border-[2px] border-secondary"
-                />
-              </div>
-
-              <div className='   flex flex-col gap-2 items-start'>
-
-                <div className=' mb-2 flex gap-2 items-center'>
-                  <Clock className='text-primary'/> Select time
+            <DialogDescription className=' grid grid-cols-1 md:grid-cols-2'>
+              <div className=' flex flex-col gap-1 md:gap-4 items-start justify-center '>
+                  <div className=' mb-1 flex items-center gap-2'>
+                  <CalendarDays className='text-primary' /> Select date
+                  </div>
+                  <Calendar
+                    mode="single"
+                    selected={date}
+                    onSelect={setDate}
+                    disabled={isPastDay}
+                    
+                    className="rounded-md  py-2 px-2 md:py-8 md:px-4 border-[2px] border-secondary"
+                  />
                 </div>
 
-                <div className=' border-[2px] rounded-md border-secondary py-[22px] px-4  grid grid-cols-3 gap-4'>
+              <div className='   flex flex-col gap-1 md:gap-2 items-start'>
+
+                <div className=' md:mt-0 mt-3 md:mb-3 flex gap-2 items-center'>
+                  <Clock className='text-primary '/> Select time
+                </div>
+
+                <div className=' border-[2px] rounded-md border-secondary p-2 md:py-[22px] md:px-4  grid  md:grid-cols-3 grid-cols-8 gap-2 md:gap-4'>
                   {timeSlots.map((slot)=>{
                     return(
                       <p 
                       onClick={()=>setSelectedSlot(slot)}
                       onDoubleClick={()=>setSelectedSlot("")}
-                      className={ `${selectedSlot==slot ? "bg-primary text-white scale-105" : ""} text-center cursor-pointer p-[6px] border-[1px] border-secondary rounded-2xl hover:bg-primary hover:text-white`}>{slot}</p>
+                      className={ `${selectedSlot==slot ? "bg-primary  text-white scale-105" : ""} text-center cursor-pointer p-1 border-[1px] text-sm border-secondary md:rounded-2xl rounded-md hover:bg-primary hover:text-white`}>{slot}</p>
                     )
                   })}
                 </div>
@@ -155,13 +163,14 @@ function BookAppointment({id}:Tprop) {
             </DialogDescription>
             
           </DialogHeader>
-          <DialogFooter className=" my-2 gap-4 sm:justify-end">
+          <DialogFooter className=" my-2 md:flex-row flex-col gap-4 sm:justify-end">
           <Button 
           onClick={saveBooking}
-            className='active:scale-90 transition-all' 
+            className='active:scale-90 transition-all gap-2' 
            disabled={!(date && selectedSlot)}
             variant="default">
               Submit
+              {isLoading ? <TailSpin height={20} width={20} color="#EBE9FC" /> :""}
           </Button>
           <DialogClose asChild>
             <Button className='active:scale-90 transition-all' type="button" variant="destructive">

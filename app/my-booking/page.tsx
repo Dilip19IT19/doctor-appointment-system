@@ -4,6 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import BookingLists from '@/components/BookingLists'
 import { KindeUser } from '@kinde-oss/kinde-auth-nextjs/server';
 import GlobalAPI from '@/utils/GlobalAPI';
+import { Oval} from "react-loader-spinner"
 
 
 export interface IAppointments{
@@ -38,6 +39,7 @@ function MyBookingPage() {
 
   const[user,setUser]=useState<KindeUser>();
   let[bookingList,setBookingList]=useState<IAppointments[]>(); 
+  let[isLoading,setIsLoading]=useState(false);
 
   useEffect(() => {
     const getKindeSession = async () => {
@@ -54,9 +56,23 @@ function MyBookingPage() {
 
   async function getBookingList(email:any) 
   {
-    const res=await GlobalAPI.getAppointmentsList(email);
-    console.log(res.data.data);;
-    setBookingList(res.data?.data);  
+    try
+    {
+      setIsLoading(true);
+      const res=await GlobalAPI.getAppointmentsList(email);
+      //console.log(res.data.data);
+      setBookingList(res.data?.data); 
+
+    }
+    catch(error)
+    {
+      console.log(error);
+    }
+    finally
+    {
+      setIsLoading(false);
+    }
+    
   }
 
   useEffect(()=>{   
@@ -78,15 +94,17 @@ function MyBookingPage() {
   
   return (
     <div>
-      <p className=' ml-4 text-2xl font-bold my-4'>My Bookings</p>
-      <Tabs defaultValue="upcoming" className="w-full mt-5 p-4">
+      <p className=' ml-4 text-2xl text-primary font-bold my-4'>My Bookings</p>
+      {isLoading ? <div className=' w-full h-screen flex items-center justify-center'><Oval height={50} width={50} color='#16b2f2'/></div>  :  <Tabs defaultValue="upcoming" className="w-full mt-5 p-4">
         <TabsList className='w-full gap-5 justify-start'>
           <TabsTrigger value="upcoming">Upcoming</TabsTrigger>
           <TabsTrigger value="expired">Expired</TabsTrigger>
         </TabsList>
         <TabsContent value="upcoming"><BookingLists updateRecord={()=>getBookingList(user?.email)} appointmentList={filterBookingList('upcoming')} isExpired={false}  /></TabsContent>
         <TabsContent value="expired"><BookingLists updateRecord={()=>getBookingList(user?.email)} appointmentList={filterBookingList('expired')} isExpired={true}  /></TabsContent>
-      </Tabs>
+      </Tabs>}
+      
+     
 
     </div>
   )

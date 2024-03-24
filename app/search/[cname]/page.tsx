@@ -59,8 +59,8 @@ function SearchPage({params}:Iprop)
 
 
   return (
-   <div className=' mx-4'>
-      <p className="text-center my-8 text-xl tracking-wider">All <span className=' text-2xl text-blue-700'>{params.cname}</span> Doctors </p>
+   <div className=' mx-2 md:mx-4'>
+      <p className="text-center my-8 text-lg md:text-xl tracking-wider">All <span className=' md:text-2xl text-xl text-blue-700'>{params.cname}</span> Doctors </p>
       <div className=' flex justify-around items-center flex-wrap gap-4'>
         {doctors?.map((doctor)=>{
           return(
