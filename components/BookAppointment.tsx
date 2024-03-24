@@ -147,9 +147,10 @@ function BookAppointment({id}:Tprop) {
                 </div>
 
                 <div className=' border-[2px] rounded-md border-secondary p-2 md:py-[22px] md:px-4  grid  md:grid-cols-3 grid-cols-8 gap-2 md:gap-4'>
-                  {timeSlots.map((slot)=>{
+                  {timeSlots.map((slot,idx)=>{
                     return(
                       <p 
+                      key={idx}
                       onClick={()=>setSelectedSlot(slot)}
                       onDoubleClick={()=>setSelectedSlot("")}
                       className={ `${selectedSlot==slot ? "bg-primary  text-white scale-105" : ""} text-center cursor-pointer p-1 border-[1px] text-sm border-secondary md:rounded-2xl rounded-md hover:bg-primary hover:text-white`}>{slot}</p>

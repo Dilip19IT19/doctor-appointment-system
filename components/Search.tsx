@@ -60,14 +60,14 @@ function Search() {
         <div className=' transition-all grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4  gap-y-12 my-12 md:px-8 px-4'>
           { isLoading ? [1,2,3,4,5,6].map((item,idx)=>{
             return(
-              <Skeleton>
+              <Skeleton key={idx}>
                 <div className=' h-[120px] w-[150px] p-4 rounded-md'></div>
               </Skeleton>
             )
-          }) : categories?.map((category)=>{
+          }) : categories?.map((category,idx)=>{
             return(
-
-              <TooltipProvider>
+              <div key={idx}>
+                <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger>
                       <Link href={`/search/${category.attributes.name}`} className='bg-[#617fd8] text-black hover:bg-primary cursor-pointer rounded-md text-sm md:text-lg flex flex-col justify-center items-center p-2'>
@@ -81,8 +81,7 @@ function Search() {
                 </Tooltip>
               </TooltipProvider>
 
-
-             
+              </div>            
              
             )
           })} 

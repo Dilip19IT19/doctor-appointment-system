@@ -3,9 +3,9 @@ import React from 'react'
 function AboutPage() {
   return (
     <div className=' p-4'>
-      <h1 className=' text-lg font-bold text-primary mt-4 mb-2'>About Section for "Doctor Appointment System" Project</h1> 
+      <h1 className=' text-lg font-bold text-primary mt-4 mb-2'>About Section for &quot;Doctor Appointment System&quot; Project</h1> 
       <p>
-      Welcome to the "Doctor Appointment System," a user-friendly platform designed to streamline the process of scheduling and managing medical appointments. Our project aims to provide a convenient and efficient solution for both patients and healthcare providers, enhancing the overall healthcare experience.
+      Welcome to the &quot;Doctor Appointment System,&quot; a user-friendly platform designed to streamline the process of scheduling and managing medical appointments. Our project aims to provide a convenient and efficient solution for both patients and healthcare providers, enhancing the overall healthcare experience.
       </p>
 
 
@@ -19,7 +19,7 @@ function AboutPage() {
  <h1 className=' text-lg font-bold text-primary mt-4 mb-2'>Our Vision</h1>
  <p>We envision a future where healthcare services are easily accessible to all, where technology plays a vital role in improving patient care and enhancing the efficiency of medical practices. Join us on this journey towards a healthier and more connected community.
 
-Experience the convenience and efficiency of the "Doctor Appointment System" as we strive to revolutionize the way healthcare appointments are scheduled and managed. Together, let's make healthcare more accessible, convenient, and patient-centered.</p>
+Experience the convenience and efficiency of the &quot;Doctor Appointment System&quot; as we strive to revolutionize the way healthcare appointments are scheduled and managed. Together, let&apos;s make healthcare more accessible, convenient, and patient-centered.</p>
 
 
     </div>
