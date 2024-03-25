@@ -1,11 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import { Button } from './ui/button'
-import { Input } from './ui/input'
-import { SearchIcon } from 'lucide-react'
 import GlobalAPI from '@/utils/GlobalAPI'
 import Image from 'next/image'
-import DoctorList from './DoctorList'
 import { Skeleton } from './ui/skeleton'
 import Link from 'next/link'
 import {
@@ -14,6 +10,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import PopularDoctorsList from './PopularDoctorsList'
 
 
 interface MedicalSpecialist{
@@ -87,7 +84,7 @@ function Search() {
           })} 
         </div>
         <h1 className=' md:text-3xl text-xl mb-4 mt-2'>Popular <span className='text-primary'>Doctors</span></h1>
-        <DoctorList/>
+       <PopularDoctorsList/>
        <p className=' my-4'></p>
      
         

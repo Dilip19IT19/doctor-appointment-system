@@ -1,51 +1,20 @@
-import GlobalAPI from '@/utils/GlobalAPI';
-import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
-import { Badge } from "@/components/ui/badge"
-import { Button } from './ui/button';
-import { Skeleton } from "@/components/ui/skeleton"
+import { IDoctor } from './DoctorList';
+import GlobalAPI from '@/utils/GlobalAPI';
+import { Skeleton } from './ui/skeleton';
 import Link from 'next/link';
+import { Button } from './ui/button';
+import { Badge } from './ui/badge';
+import Image from 'next/image';
 
-
-export interface IDoctor
-{
-  id:number,
-  attributes:{
-    name:string,
-    address:string,
-    patients:string,
-    experience:number,
-    startTime:string,
-    endTime:string,
-    about:string,
-    phone:string,
-    premium:boolean,
-    image:{
-      data:{
-        attributes:{
-          url:string
-        }
-      }
-    },
-    category:{
-      data:{
-        attributes:{
-          name:string
-        }
-      }
-    }
-  }
-}
-
-function DoctorList() {
-
+function PopularDoctorsList() {
   const[doctorsList,setDoctorsList]=useState<IDoctor[]>();
   let[isLoading,setIsLoading]=useState(true);
   useEffect(()=>{
 
     async function getDoctorsList() 
     {
-      const res=await GlobalAPI.getDoctors();  
+      const res=await GlobalAPI.getLimitedDoctors();  
       console.log(res.data?.data);
       setDoctorsList(res.data?.data);
       setIsLoading(false);
@@ -55,10 +24,9 @@ function DoctorList() {
     getDoctorsList();
 
   },[])
-
   return (
     <div >
-      <div className=' flex flex-wrap gap-8 items-center justify-around '>{ isLoading? [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15].map((item,idx)=>{
+      <div className=' flex flex-wrap gap-8 items-center justify-around '>{ isLoading? [1,2,3,4,5,6,7,8,9,10].map((item,idx)=>{
         return(
           <Skeleton key={idx}>
             <div className='w-[250px] h-[200px] rounded-md'></div>         
@@ -84,4 +52,4 @@ function DoctorList() {
   )
 }
 
-export default DoctorList
+export default PopularDoctorsList
