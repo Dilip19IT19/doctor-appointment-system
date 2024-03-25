@@ -64,7 +64,7 @@ function CategoryList() {
   },[])
   return (
     <aside className=' h-3/4 flex flex-col border-secondary  border-r-[1px] '>
-      <p className=' md:text-xl text-lg text-center my-8 font-bold'> Categories</p>  
+      <p className=' md:text-xl  text-center my-8 font-bold'> Categories</p>  
 
       <ScrollArea>
 
@@ -73,8 +73,8 @@ function CategoryList() {
           {categories?.map((category)=>{
               return(
 
-                <Link key={category.id} className={`${catg===category.attributes.name && "bg-blue-700"} hover:bg-secondary rounded-md border-[1px] border-secondary shadow-md flex justify-between px-4 py-2  items-center`}  href={`/search/${category.attributes.name}`}>
-                  <Image className='  bg-[#4D79CD] p-[4px] rounded-full' src={category.attributes.image.data.attributes.url} height={30} width={35} alt={category.attributes.name}/> 
+                <Link key={category.id} className={`${catg===category.attributes.name && "bg-blue-700"} hover:bg-secondary rounded-md border-[1px] border-secondary shadow-md flex justify-center md:justify-between md:px-4  md:py-2  items-center`}  href={`/search/${category.attributes.name}`}>
+                  <Image className='  bg-[#4D79CD]  p-[4px] rounded-full' src={category.attributes.image.data.attributes.url} height={30} width={35} alt={category.attributes.name}/> 
                   <label className='md:block hidden text-sm md:text-lg'>{category.attributes.name}</label>
                 </Link>
 
