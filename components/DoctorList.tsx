@@ -56,6 +56,9 @@ function DoctorList() {
 
   },[])
 
+  
+  
+
   return (
     <div >
       <div className=' flex flex-wrap gap-8 items-center justify-around '>{ isLoading? [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15].map((item,idx)=>{
@@ -65,7 +68,7 @@ function DoctorList() {
             
           </Skeleton>
         )
-      }) : doctorsList?.map((doctor)=>{
+      }) : doctorsList?.map( (doctor)=>{
         return(
          <div key={doctor.id} className='border-[1px] hover:border-primary border-secondary shadow-xl rounded-xl px-3 py-2'>
         
@@ -73,7 +76,11 @@ function DoctorList() {
              <label className=''>{doctor.attributes.name}</label>
              
              <div className=' flex md:flex-row flex-col md:gap-0 gap-4  md:justify-between my-2 items-center'>
-              <Link href={`/details/${doctor.id}`}><Button size={"sm"}>Book Now</Button></Link> 
+             <Link href={`/details/${doctor.id}`}>
+                <Button  size="sm">
+                  Book Now
+                </Button>
+              </Link>
               <Badge variant={"secondary"}>{doctor.attributes.category.data.attributes.name}</Badge>
              </div>
          </div>
