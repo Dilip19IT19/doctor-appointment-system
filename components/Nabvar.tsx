@@ -21,6 +21,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import { usePathname } from 'next/navigation'
 
 
 
@@ -28,6 +29,7 @@ function Nabvar() {
  
   const[user,setUser]=useState<KindeUser>();
   const [authStatus, setAuthStatus] = useState(null);
+  const pathname=usePathname();
  
 
  
@@ -81,8 +83,9 @@ function Nabvar() {
                 <ul className='flex flex-col items-start justify-center gap-5 '>
                 <Image className='my-2' src="/logo.svg" alt="logo" height={30} width={30} />
                   {menus.map((menu)=>{
+                    let isActive= pathname===menu.href;
                     return(
-                      <Link className='text-primary text-sm ' key={menu.id} href={menu.href}>
+                      <Link className={`${isActive ? "text-primary text-lg" :"text-blue-400"}  text-sm `} key={menu.id} href={menu.href}>
                         <li>{menu.title}</li>
                       </Link>              
                     )
@@ -100,8 +103,9 @@ function Nabvar() {
         <Image className='md:block hidden' src="/logo.svg" alt="logo" height={35} width={30} />
         <ul className=' hidden md:flex items-center gap-8 '>
           {menus.map((menu)=>{
+            let isActive= pathname===menu.href;
             return(
-              <Link className='hover:text-primary text-sm md:text-lg hover:scale-105 transition-all ease-in-out' key={menu.id} href={menu.href}>
+              <Link className={`${isActive? "text-primary text-xl " :"text-blue-200 "} hover:text-primary text-lg hover:scale-105 transition-all ease-in-out`} key={menu.id} href={menu.href}>
                 <li>{menu.title}</li>
               </Link>              
             )

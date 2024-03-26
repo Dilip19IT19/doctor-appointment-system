@@ -8,6 +8,7 @@ import moment from "moment"
 import CancelAppointment from './CancelAppointment'
 import GlobalAPI from '@/utils/GlobalAPI'
 import { useToast } from './ui/use-toast'
+import UpdateAppointment from './UpdateAppointment'
 
 
 interface prop{
@@ -33,11 +34,23 @@ function BookingLists({appointmentList,isExpired,updateRecord }:prop) {
       updateRecord();
     }
   }
+
+  async function DeleteAppointment(id:number)
+  {
+    const res=await GlobalAPI.deleteAppointment(id);
+    if(res)
+    {
+      toast({
+        title: `Your expired appointment has been successfully deleted`,
+      })
+      updateRecord();
+    }
+  }
   
   return (
     <div className=' flex flex-col gap-4 my-5 items-start '>
 
-      {appointmentList?.map((appointment)=>{
+      {appointmentList?.length==0 ? <div className=' text-red-400 w-full tracking-wide text-center'>No appointments...</div> : appointmentList?.map((appointment)=>{
         return(
           <div key={appointment.id} className=' w-full p-2 flex flex-wrap gap-4 justify-around items-center border-[2px] border-secondary rounded-md'>
            
@@ -59,13 +72,18 @@ function BookingLists({appointmentList,isExpired,updateRecord }:prop) {
               </div>
 
             </div>
-            {!isExpired && <CancelAppointment  onContinueClick={()=>onDeleteBooking(appointment)} />}
-            
+            {!isExpired && <div className='flex flex-col justify-center gap-6'>
+               <CancelAppointment  onContinueClick={()=>onDeleteBooking(appointment)} /> 
+               <UpdateAppointment onContinueClick={()=>updateRecord()} Appointment={appointment}/>
+               </div> }
+            {isExpired && <Button variant={"destructive"} onClick={()=>DeleteAppointment(appointment.id)}>Delete Appointment</Button>}
                     
 
           </div>
         )
       })}
+
+     
 
     </div>
   )

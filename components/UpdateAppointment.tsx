@@ -18,16 +18,15 @@ import GlobalAPI from '@/utils/GlobalAPI'
 import { useToast } from "@/components/ui/use-toast"
 import { ToastAction } from './ui/toast'
 import {TailSpin} from "react-loader-spinner"
+import { IAppointments } from '@/app/my-booking/page'
 
-
-
-
-
-type Tprop={
-  id:number | undefined
+type UpdateProp={
+  Appointment:IAppointments,
+  onContinueClick:()=>{}
 }
 
-function BookAppointment({id}:Tprop) {
+function UpdateAppointment({Appointment,onContinueClick}:UpdateProp) 
+{
   const [date, setDate] =useState<Date | undefined>(new Date());
   let[timeSlots,setTimeSlots]=useState<string[]>([]);
   let[selectedSlot,setSelectedSlot]=useState("");
@@ -53,37 +52,26 @@ function BookAppointment({id}:Tprop) {
       }
       setTimeSlots(timeList);
     }
-
-    const getKindeSession = async () => {
+     const getKindeSession = async () => {
       const res = await fetch("/api/kindeSession");
       const data = await res.json();
       setUser(data.user);
-      
     };
 
     getKindeSession();
 
-    getTime();
-
-   
+    getTime();   
 
   },[])
 
-  function isPastDay(day:any)
-  {
-    return day<new Date()
-  }
-
-  async function saveBooking() 
+  async function updateBooking(appointmentId:number) 
   {
     
       const data={
         data:{
-          email:user?.email,
-          username:user?.given_name+" "+user?.family_name,
+         
           date:date,
           time:selectedSlot,
-          doctor:id
   
         }
       }
@@ -91,13 +79,14 @@ function BookAppointment({id}:Tprop) {
       try
       {
         setIsLoading(true);
-        const res= await GlobalAPI.createAppointment(data);
+        const res= await GlobalAPI.updateAppointment(appointmentId,data);
         console.log(res);
         const response=await GlobalAPI.sendEmail(data);
         toast({
-          title: `Your appointment has been booked on  ${date?.getDate()}/${date?.getMonth()}/${date?.getFullYear()} at ${selectedSlot}`,          
+          title: `Your new appointment has been booked on  ${date?.getDate()}/${date?.getMonth()}/${date?.getFullYear()} at ${selectedSlot}`,          
          
         })
+        onContinueClick();
        
       }
       catch(err)
@@ -115,13 +104,17 @@ function BookAppointment({id}:Tprop) {
      
    
   }
-  
 
+
+  function isPastDay(day:any)
+  {
+    return day<new Date()
+  }
 
   return (
     <div>
-      <Dialog>
-        <DialogTrigger className=' bg-primary md:p-[6px] p-1 active:scale-95 transition-all rounded-lg '>Book Appoitment</DialogTrigger>
+       <Dialog>
+        <DialogTrigger className=' bg-yellow-600 md:p-[6px] p-1 active:scale-95 transition-all rounded-lg '>Update Appoitment</DialogTrigger>
         <DialogContent>
           <DialogHeader>
            
@@ -166,7 +159,7 @@ function BookAppointment({id}:Tprop) {
           </DialogHeader>
           <DialogFooter className=" my-2 md:flex-row flex-col gap-4 sm:justify-end">
           <Button 
-          onClick={saveBooking}
+          onClick={()=>updateBooking(Appointment.id)}
             className='active:scale-90 transition-all gap-2' 
            disabled={!(date && selectedSlot)}
             variant="default">
@@ -182,11 +175,8 @@ function BookAppointment({id}:Tprop) {
           
         </DialogContent>
       </Dialog>
-
     </div>
   )
 }
 
-export default BookAppointment
-
-
+export default UpdateAppointment
