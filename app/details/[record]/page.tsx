@@ -122,13 +122,13 @@ import { RevolvingDot, Rings } from 'react-loader-spinner';
 
         <div className=' flex flex-col gap-4 items-start'>
           <div className=' flex justify-center items-center gap-1'>
-            <GraduationCap className='text-primary'/>{doctorInfo?.attributes.experience} of Experience
+            <GraduationCap className='text-primary'/>{doctorInfo?.attributes.experience} years of Experience
           </div>
           <div  className=' flex justify-center items-center gap-1'>
             <MapPin className='text-primary'/>{doctorInfo?.attributes.address}
           </div>
           <div  className=' flex justify-center items-center gap-1'>
-            <PersonStanding className=' text-primary'/>{doctorInfo?.attributes.patients} checked
+            <PersonStanding className=' text-primary'/>{doctorInfo?.attributes.patients}+ patients checked
           </div>
           <div className='flex justify-center items-center gap-1'>
             <Phone className='text-primary'/> {doctorInfo?.attributes.phone}
