@@ -5,6 +5,7 @@ import BookingLists from '@/components/BookingLists'
 import { KindeUser } from '@kinde-oss/kinde-auth-nextjs/server';
 import GlobalAPI from '@/utils/GlobalAPI';
 import { Oval} from "react-loader-spinner"
+import moment from 'moment';
 
 
 export interface IAppointments{
@@ -84,7 +85,7 @@ function MyBookingPage() {
   function filterBookingList(type:string)
   {
     const result=bookingList?.filter((item)=>(
-      type=='upcoming' ? new Date(item.attributes.date)>=new Date() : new Date(item.attributes.date)< new Date()
+      type=='upcoming' ? moment(new Date(item.attributes.date)).format("DD-MM-YYYY") >= moment(new Date()).format("DD-MM-YYYY")  :  moment(new Date(item.attributes.date)).format("DD-MM-YYYY") < moment(new Date()).format("DD-MM-YYYY")
     ))
     console.log("result")
     console.log(result);

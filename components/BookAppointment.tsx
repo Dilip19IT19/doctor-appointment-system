@@ -18,6 +18,7 @@ import GlobalAPI from '@/utils/GlobalAPI'
 import { useToast } from "@/components/ui/use-toast"
 import { ToastAction } from './ui/toast'
 import {TailSpin} from "react-loader-spinner"
+import moment from 'moment'
 
 
 
@@ -91,13 +92,28 @@ function BookAppointment({id}:Tprop) {
       try
       {
         setIsLoading(true);
-        const res= await GlobalAPI.createAppointment(data);
-        console.log(res);
-        const response=await GlobalAPI.sendEmail(data);
-        toast({
-          title: `Your appointment has been booked on  ${date?.getDate()}/${date?.getMonth()}/${date?.getFullYear()} at ${selectedSlot}`,          
-         
-        })
+        const checkRes=await GlobalAPI.isAppointmentAvailable(moment(date).format("DD-MM-YYYY"),selectedSlot,user?.email);
+        if(checkRes.data.data[0])
+        {
+          
+            toast({
+              variant: "destructive",
+              title: "You have already booked appointment on "+(moment(date).format("DD-MM-YYYY"))+" at "+selectedSlot,
+              
+            })
+          
+        }
+        else
+        {
+          const res= await GlobalAPI.createAppointment(data);
+          console.log(res);
+          const response=await GlobalAPI.sendEmail(data);
+          toast({
+            title: `Your appointment has been booked on  ${date?.getDate()}/${date?.getMonth()}/${date?.getFullYear()} at ${selectedSlot}`,          
+           
+          })
+        }
+       
        
       }
       catch(err)

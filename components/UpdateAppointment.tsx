@@ -12,13 +12,14 @@ import {
 } from "@/components/ui/dialog"
 
 import { Calendar } from "@/components/ui/calendar"
-import { CalendarDays, Clock } from 'lucide-react'
+import { CalendarDays, Clock, SquarePen } from 'lucide-react'
 import { KindeUser } from '@kinde-oss/kinde-auth-nextjs/server'
 import GlobalAPI from '@/utils/GlobalAPI'
 import { useToast } from "@/components/ui/use-toast"
 import { ToastAction } from './ui/toast'
 import {TailSpin} from "react-loader-spinner"
 import { IAppointments } from '@/app/my-booking/page'
+import moment from 'moment'
 
 type UpdateProp={
   Appointment:IAppointments,
@@ -79,14 +80,30 @@ function UpdateAppointment({Appointment,onContinueClick}:UpdateProp)
       try
       {
         setIsLoading(true);
-        const res= await GlobalAPI.updateAppointment(appointmentId,data);
-        console.log(res);
-        const response=await GlobalAPI.sendEmail(data);
-        toast({
-          title: `Your new appointment has been booked on  ${date?.getDate()}/${date?.getMonth()}/${date?.getFullYear()} at ${selectedSlot}`,          
-         
-        })
-        onContinueClick();
+        const checkRes=await GlobalAPI.isAppointmentAvailable(moment(date).format("DD-MM-YYYY"),selectedSlot,user?.email);
+        if(checkRes.data.data[0])
+        {
+          
+            toast({
+              variant: "destructive",
+              title: "You have already booked appointment on "+(moment(date).format("DD-MM-YYYY"))+" at "+selectedSlot,
+              
+            })
+          
+        }
+        else
+        {
+          const res= await GlobalAPI.updateAppointment(appointmentId,data);
+          console.log(res);
+          const response=await GlobalAPI.sendEmail(data);
+          toast({
+            title: `Your new appointment has been booked on  ${date?.getDate()}/${date?.getMonth()}/${date?.getFullYear()} at ${selectedSlot}`,          
+           
+          })
+          onContinueClick();
+
+        }
+       
        
       }
       catch(err)
@@ -114,7 +131,7 @@ function UpdateAppointment({Appointment,onContinueClick}:UpdateProp)
   return (
     <div>
        <Dialog>
-        <DialogTrigger className=' bg-yellow-600 md:p-[6px] p-1 active:scale-95 transition-all rounded-lg '>Update Appoitment</DialogTrigger>
+        <DialogTrigger className=' border-[1px] border-yellow-600 text-yellow-600 md:p-2 hover:border-none hover:bg-yellow-600 hover:text-black p-1 flex items-center gap-2 active:scale-95 transition-all rounded-sm '>Update <SquarePen className='w-4 h-4' /></DialogTrigger>
         <DialogContent>
           <DialogHeader>
            

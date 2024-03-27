@@ -11,6 +11,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { Button } from './ui/button'
+import { CircleX } from 'lucide-react'
 
 interface Iprop{
   onContinueClick:()=>{}
@@ -20,7 +21,7 @@ function CancelAppointment({onContinueClick}:Iprop) {
   return (
     <div>
       <AlertDialog>
-        <AlertDialogTrigger><Button className=' hover:bg-red-400 border-[1px] border-red-700 hover:border-none  text-red-700 hover:text-red-900' variant={"outline"} size={"sm"}>Cancel Appointment</Button></AlertDialogTrigger>
+        <AlertDialogTrigger><Button className=' gap-1 items-center hover:bg-red-400 border-[1px] border-red-700 hover:border-none  text-red-700 hover:text-red-900' variant={"outline"} size={"sm"}>Cancel <CircleX className='h-4 w-4' /></Button></AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
