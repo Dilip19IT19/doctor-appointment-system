@@ -91,7 +91,7 @@ function Nabvar() {
                       </Link>              
                     )
                   })}
-                  {!authStatus? <div className=' text-primary flex flex-col gap-4 items-start justify-center'> <RegisterLink>Sign Up</RegisterLink> <LoginLink>Login</LoginLink>  </div>: ""}
+                  {!authStatus? <div className=' text-blue-200 flex flex-col gap-4 items-start justify-center'> <RegisterLink>Sign Up</RegisterLink> <LoginLink>Login</LoginLink>  </div>: ""}
                 </ul>
                 </SheetDescription>
               </SheetHeader>
