@@ -46,7 +46,7 @@ function DoctorList() {
     async function getDoctorsList() 
     {
       const res=await GlobalAPI.getDoctors();  
-      console.log(res.data?.data);
+     // console.log(res.data?.data);
       setDoctorsList(res.data?.data);
       setIsLoading(false);
       

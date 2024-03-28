@@ -107,7 +107,7 @@ import { RevolvingDot, Rings } from 'react-loader-spinner';
 
 {/* doctor details */}
 
-<div className=' md:col-span-3 col-span-1    '>
+<div className=' md:col-span-3 col-span-1'>
 
   <div className=' flex flex-wrap gap-12 items-center shadow-lg rounded-lg border-secondary p-2 md:p-6 border-[1px]'>
 

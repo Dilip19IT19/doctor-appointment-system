@@ -22,6 +22,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { usePathname } from 'next/navigation'
+import SearchBar from './SearchBar'
 
 
 
@@ -85,7 +86,7 @@ function Nabvar() {
                   {menus.map((menu)=>{
                     let isActive= pathname===menu.href;
                     return(
-                      <Link className={`${isActive ? "text-primary text-lg" :"text-blue-400"}  text-sm `} key={menu.id} href={menu.href}>
+                      <Link className={`${isActive ? "text-primary text-lg font-bold" :"text-blue-200"}  text-sm `} key={menu.id} href={menu.href}>
                         <li>{menu.title}</li>
                       </Link>              
                     )
@@ -105,17 +106,18 @@ function Nabvar() {
           {menus.map((menu)=>{
             let isActive= pathname===menu.href;
             return(
-              <Link className={`${isActive? "text-primary text-xl " :"text-blue-200 "} hover:text-primary text-lg hover:scale-105 transition-all ease-in-out`} key={menu.id} href={menu.href}>
+              <Link className={`${isActive? "text-primary text-xl  font-bold" :"text-blue-200 "} hover:text-primary text-lg hover:scale-105 transition-all ease-in-out`} key={menu.id} href={menu.href}>
                 <li>{menu.title}</li>
               </Link>              
             )
           })}
         </ul>
+       
         {authStatus ?  (<div className=' flex gap-2 items-center'>
           
-         
+        <SearchBar/>
           <Popover>
-            <PopoverTrigger className=' cursor-pointer p-2 rounded-full bg-secondary'>
+            <PopoverTrigger className='md:ml-6 ml-2 cursor-pointer p-2 rounded-full bg-secondary'>
               
                 <label className='text-primary'>{user?.given_name?.toUpperCase().charAt(0)}{user?.family_name?.toUpperCase().charAt(0)}</label>
               
@@ -126,9 +128,10 @@ function Nabvar() {
               <LogoutLink><Button variant={"destructive"} size={"sm"}>Log Out</Button></LogoutLink>
             </PopoverContent>
           </Popover>
-
+          
           <DarkModeToggle classname='md:mx-4 mx-1'/>
         </div>):  (<div className=' hidden md:flex gap-8 items-center'>
+          <SearchBar/>
           <LoginLink><Button  variant={"outline"}>Login</Button></LoginLink>
           <RegisterLink><Button size={"sm"}>Sign Up</Button></RegisterLink>
           
