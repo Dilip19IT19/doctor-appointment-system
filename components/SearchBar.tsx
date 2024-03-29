@@ -53,7 +53,7 @@ function SearchBar() {
 
       
       <Dialog>
-        <DialogTrigger className='md:w-[300px] w-[150px] bg-transparent border-slate-700 border-[1px] hover:border-none rounded-md hover:bg-slate-700 px-2 md:px-4 py-1 '>
+        <DialogTrigger className='md:w-[300px] w-[150px] bg-transparent border-slate-500 border-[1px] hover:border-none rounded-md hover:bg-secondary px-2 md:px-4 py-1 '>
           Search Doctor...
         </DialogTrigger>
         <DialogContent >

@@ -84,7 +84,7 @@ function BookingLists({appointmentList,isExpired,updateRecord }:prop) {
                <UpdateAppointment onContinueClick={()=>updateRecord()} Appointment={appointment}/>
                <CancelAppointment  onContinueClick={()=>onDeleteBooking(appointment)} /> 
                </div> }
-            {isExpired && <Button variant={"destructive"} onClick={()=>DeleteAppointment(appointment.id)}>Delete</Button>}
+            {isExpired && <Button className='flex gap-1 items-center' variant={"destructive"} onClick={()=>DeleteAppointment(appointment.id)}>Delete<Trash2 className='h-4 w-4'/></Button>}
                     
 
           </div>

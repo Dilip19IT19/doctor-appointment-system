@@ -106,7 +106,7 @@ function Nabvar() {
           {menus.map((menu)=>{
             let isActive= pathname===menu.href;
             return(
-              <Link className={`${isActive? "text-primary text-xl  font-bold" :"text-blue-200 "} hover:text-primary text-lg hover:scale-105 transition-all ease-in-out`} key={menu.id} href={menu.href}>
+              <Link className={`${isActive? "text-primary text-xl  font-bold" :"text-blue-500 "} hover:text-primary text-lg hover:scale-105 transition-all ease-in-out`} key={menu.id} href={menu.href}>
                 <li>{menu.title}</li>
               </Link>              
             )
